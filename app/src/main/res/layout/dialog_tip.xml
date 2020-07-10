@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:gravity="center"
+        android:background="@drawable/bg_ffffff_r10"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:paddingTop="32dp"
+            android:paddingBottom="29dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textColor="@color/c_202020"
+            android:textSize="@dimen/sp_14"
+            android:text="内容" />
+
+        <View
+            android:background="@color/c_999999"
+            android:alpha="0.2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:text="取消"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <View
+                android:background="@color/c_999999"
+                android:alpha="0.2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:text="取消"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textColor="#FF9800"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

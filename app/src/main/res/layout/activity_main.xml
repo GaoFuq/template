@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="IM测试" />
+
+    <com.tencent.qcloud.tim.uikit.component.indexlib.IndexBar.widget.IndexBar
+        android:id="@+id/indexBar"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        app:indexBarPressBackground="@color/c_ff740a"
+        app:indexBarTextSize="@dimen/sp_14" />
+</RelativeLayout>
