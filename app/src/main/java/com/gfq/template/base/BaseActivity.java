@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.gfq.gstatusbar.StatusBarUtils;
 import com.gfq.template.utils.ComUtil;
-import com.gfq.template.utils.statusbar.StatusBarUtils;
 
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     protected final String TAG = getClass().getSimpleName();
