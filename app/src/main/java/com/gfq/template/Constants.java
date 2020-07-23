@@ -17,6 +17,6 @@ public class Constants {
     public static final String APP_DOWNLOAD_DIRECTORY = APP_DIRECTORY + "/download";
 
 
-    public static final String FILE_PROVIDER = App.getAppCtx().getPackageName()+".provider";
+    public static final String FILE_PROVIDER = App.appContext.getPackageName()+".provider";
 
 }

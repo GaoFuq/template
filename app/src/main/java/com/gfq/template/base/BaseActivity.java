@@ -17,7 +17,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
     protected abstract int layout();
 
-    protected abstract void main();
+    protected abstract void initView();
 
     protected abstract void handleClick();
 
@@ -34,7 +34,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         if (binding == null) {
             setContentView(layout());
         }
-        main();
+        initView();
 
         handleClick();
     }

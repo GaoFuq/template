@@ -31,8 +31,8 @@ public class ComUtil {
     public static void toast(String msg) {
         boolean fastDoubleClick = isFastDoubleClick();
         if (!fastDoubleClick)
-            if (App.getAppCtx() != null) {
-                Toast.makeText(App.getAppCtx(), msg, Toast.LENGTH_SHORT).show();
+            if (App.appContext != null) {
+                Toast.makeText(App.appContext, msg, Toast.LENGTH_SHORT).show();
             }
     }
 

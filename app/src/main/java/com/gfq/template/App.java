@@ -18,26 +18,23 @@ import java.lang.ref.WeakReference;
  * @Descaption
  */
 public class App extends Application {
-    public static WeakReference<Context> appCtx;
+    public static Context appContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        appCtx = new WeakReference<>(this);
-        initUM();
+        appContext = this;
+//        initUM();
     }
 
-    public static Context getAppCtx() {
-        return appCtx.get();
-    }
 
 
     /**
      * 友盟初始化
      */
     private void initUM() {
-        UmengLib.init(this,"","");
+        UmengLib.init(this, "", "");
         //设置第三方登录和分享
-        PlatformConfig.setWeixin("key","secret");
+        PlatformConfig.setWeixin("key", "secret");
     }
 }

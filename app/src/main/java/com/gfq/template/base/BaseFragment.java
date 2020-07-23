@@ -28,6 +28,10 @@ import com.gfq.template.utils.ComUtil;
  * create by 高富强
  * on {2019/9/18} {16:29}
  * desctapion:
+ * 使用viewpager,当behavior=0时，在 lazyLoadData()方法中可实现懒加载数据。
+ * 当behavior=1时，无影响。
+ *
+ * 当使用viewpager2时，无影响。
  */
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     protected final String TAG = getClass().getSimpleName();
@@ -41,11 +45,14 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     private ProgressBar loading;
     protected ImageView ivBack;
 
+    private boolean isViewCreated = false;
+    private boolean currentIsVisible = false;
+    private View rootView;
 
     protected abstract int layout();
 
 
-    protected abstract void main();
+    protected abstract void initView();
 
     protected abstract void handleClick();
 
@@ -66,34 +73,95 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_base, parent, false);
-        FrameLayout container = view.findViewById(R.id.base_fragment_container);
-        try {
-            binding = DataBindingUtil.inflate(inflater, layout(), container, false);
-            container.addView(binding.getRoot());
-        } catch (Exception e) {
-            View noBindingContent = inflater.inflate(layout(), container, false);
-            container.addView(noBindingContent);
+        loge(TAG + "--onCreateView");
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_base, parent, false);
+            FrameLayout container = rootView.findViewById(R.id.base_fragment_container);
+            try {
+                binding = DataBindingUtil.inflate(inflater, layout(), container, false);
+                container.addView(binding.getRoot());
+            } catch (Exception e) {
+                View noBindingContent = inflater.inflate(layout(), container, false);
+                container.addView(noBindingContent);
+            }
         }
-        fitSysWindow(view);
-        return view;
+        isViewCreated = true;
+        fitSysWindow(rootView);
+        initBaseAction(rootView);
+        initView();
+        handleClick();
+        try {
+            controller = NavHostFragment.findNavController(this);
+        } catch (Exception ignore) {
+        }
+        if (getUserVisibleHint()) {
+            dispatch(true);
+        }
+        return rootView;
     }
 
-    public void fitSysWindow(View view) {
+    public void fitSysWindow(View rootView) {
 
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        logE("onViewCreated");
-        try {
-            controller = NavHostFragment.findNavController(this);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        loge(TAG + "--setUserVisibleHint isVisibleToUser = " + isVisibleToUser);
+        if (isViewCreated) {
+            if (isVisibleToUser && !currentIsVisible) {
+                dispatch(true);
+            } else if (!isVisibleToUser && currentIsVisible) {
+                dispatch(false);
+            }
         }
-        initBaseAction(view);
-        main();
-        handleClick();
+    }
+
+
+    private void dispatch(boolean isVisible) {
+        if (currentIsVisible == isVisible) {
+            return;
+        }
+        currentIsVisible = isVisible;
+        if (isVisible) {
+            lazyLoadData();
+        } else {
+            stopLoadData();
+        }
+    }
+
+    private void stopLoadData() {
+
+    }
+
+    protected abstract void lazyLoadData();
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!currentIsVisible && getUserVisibleHint()) {
+            dispatch(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isOnResumeReLoadData() && currentIsVisible && getUserVisibleHint()) {
+            dispatch(true);
+        }
+    }
+
+    public boolean isOnResumeReLoadData() {
+        return true;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        loge(TAG + "--onDestroyView ");
+        currentIsVisible = false;
+        isViewCreated = false;
     }
 
     private void initBaseAction(View view) {
@@ -161,11 +229,11 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
         loading.setVisibility(View.GONE);
     }
 
-    protected void logD(String msg) {
+    protected void logd(String msg) {
         Log.d(TAG, msg);
     }
 
-    protected void logE(String msg) {
+    protected void loge(String msg) {
         Log.e(TAG, msg);
     }
 

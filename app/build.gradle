@@ -94,11 +94,12 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'
 
 
-    implementation 'com.github.GaoFuq:Gdialog:1.0.3'
+    implementation 'com.github.GaoFuq:Gdialog:1.1.1'
     implementation 'com.github.GaoFuq:GDataBind:1.0.2'
     implementation 'com.github.GaoFuq:GCountdown:1.0.1'
     implementation 'com.github.GaoFuq:umengLib:1.0.5'
-    implementation 'com.github.GaoFuq:GStatusBar:1.0.0'
+    implementation 'com.github.GaoFuq:GStatusBar:1.0.1'
+    implementation 'com.github.GaoFuq:GRefreshView:1.0.0'
 
 
 

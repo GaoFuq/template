@@ -1,17 +1,21 @@
 package com.gfq.template;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-
-import com.gfq.gcountdown.GCountdown;
 import com.gfq.template.base.BaseActivity;
+import com.gfq.template.databinding.ActivityMainBinding;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.Arrays;
+import java.util.List;
 
 
-public class MainActivity extends BaseActivity {
-    String ss="";
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected int layout() {
@@ -19,11 +23,10 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void main() {
-        TextView view = findViewById(R.id.test);
-        GCountdown gCountdown = new GCountdown(view,10000,1000,"finished","onTick","秒");
-        gCountdown.startTimer(getLifecycle());
+    protected void initView() {
+
     }
+
 
     @Override
     protected void handleClick() {
