@@ -30,7 +30,7 @@ import com.gfq.template.utils.ComUtil;
  * desctapion:
  * 使用viewpager,当behavior=0时，在 lazyLoadData()方法中可实现懒加载数据。
  * 当behavior=1时，无影响。
- *
+ * <p>
  * 当使用viewpager2时，无影响。
  */
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
@@ -86,7 +86,9 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
             }
         }
         isViewCreated = true;
-        fitSysWindow(rootView);
+        if (fitSysWindow()) {
+            rootView.findViewById(R.id.statusbar).setVisibility(View.VISIBLE);
+        }
         initBaseAction(rootView);
         initView();
         handleClick();
@@ -100,8 +102,8 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
         return rootView;
     }
 
-    public void fitSysWindow(View rootView) {
-
+    public boolean fitSysWindow() {
+        return false;
     }
 
     @Override
