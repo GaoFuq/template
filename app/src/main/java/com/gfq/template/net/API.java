@@ -3,40 +3,37 @@ package com.gfq.template.net;
 
 public class API<T> {
 
-    private int code;
+    private int errorCode;
 
-    private String msg;
+    private String errorMsg;
 
     private T data;
 
 
-
-
-
-    public int getCode() {
-        return code;
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public API<T> setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+        return this;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public API<T> setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
     }
-
 
     public T getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public API<T> setData(T data) {
         this.data = data;
+        return this;
     }
-
-
 }
